@@ -1,0 +1,20 @@
+---
+import Layout from "@src/components/Layout.astro";
+import ParentTimeline from "@src/components/ParentTimeline.astro";
+import TextSlide from "@src/components/TextSlide.astro";
+---
+
+<Layout>
+  <ParentTimeline>
+    <TextSlide contentPause={5}>
+      <h2>Experimenting with nested timelines in GSAP</h2>
+      <p>
+        I'm trying out how we can use Astro's HTML templating to create nested
+        GSAP timelines in a sequence.
+      </p>
+    </TextSlide>
+    <TextSlide>
+      <p>Here's another slide.</p>
+    </TextSlide>
+  </ParentTimeline>
+</Layout>

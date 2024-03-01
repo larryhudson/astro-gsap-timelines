@@ -1,0 +1,51 @@
+---
+const { id } = Astro.props;
+const fadeDuration = Astro.props.fadeDuration || 0.5;
+const contentPause = Astro.props.contentPause || 3;
+
+// TODO: add a way to get audio for the text using TTS API
+---
+
+<div
+  class="text-slide"
+  data-fade-duration={fadeDuration}
+  data-content-pause={contentPause}
+  data-timeline
+>
+  <slot />
+</div>
+
+<script>
+  import gsap from "gsap";
+
+  const textSlides = document.querySelectorAll(".text-slide");
+
+  for (const slide of textSlides) {
+    const fadeDuration = parseFloat(slide.dataset.fadeDuration);
+    const contentPause = parseFloat(slide.dataset.contentPause);
+
+    const slideTimeline = gsap.timeline({ paused: true });
+    slideTimeline
+      .set(slide, { y: -20, opacity: 0 })
+      .to(slide, {
+        y: 0,
+        opacity: 1,
+        duration: fadeDuration,
+      })
+      .to(slide, {
+        opacity: 0,
+        display: "none",
+        duration: fadeDuration,
+        delay: contentPause,
+      });
+
+    // attach the timeline to the dom element
+    slide.gsapTimeline = slideTimeline;
+  }
+</script>
+
+<style>
+  .text-slide {
+    opacity: 0;
+  }
+</style>

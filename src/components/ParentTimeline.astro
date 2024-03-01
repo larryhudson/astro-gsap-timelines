@@ -1,0 +1,28 @@
+---
+
+---
+
+<div class="timeline-container">
+  <slot />
+</div>
+
+<script>
+  import gsap from "gsap";
+  window.addEventListener("load", function () {
+    console.log("We are getting the timelines from the window");
+
+    const containerElem = document.querySelector(".timeline-container");
+
+    const childrenWithTimelines =
+      containerElem.querySelectorAll("[data-timeline]");
+
+    const parentTimeline = gsap.timeline();
+
+    for (const child of childrenWithTimelines) {
+      const timeline = child.gsapTimeline;
+      parentTimeline.add(timeline.play());
+    }
+
+    parentTimeline.play();
+  });
+</script>
